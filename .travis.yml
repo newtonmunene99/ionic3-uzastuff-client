@@ -4,10 +4,11 @@ node_js:
    - node # will use latest node
 
 before_script: # commands to run before the build step
-   - npm install -g ionic cordova
+   - npm install -g ionic
+   - npm install -g cordova
 
 script: # the build step
-   - ionic build android --aot
+   - ionic cordova build android --aot
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!) 
