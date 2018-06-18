@@ -5,7 +5,7 @@ node_js:
 
 before_script: # commands to run before the build step
    - npm install -g ionic
-   - npm install -g cordova
+   - npm install -g cordova 
 
 script: # the build step
    - ionic cordova build android --aot
