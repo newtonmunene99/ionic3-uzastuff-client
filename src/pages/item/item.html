@@ -1,0 +1,124 @@
+<!--
+  Generated template for the ItemPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-slides #imageSlider pager>
+    <ion-slide (click)="openImage(item.photos)" *ngFor="let photo of item.photos">
+      <img-loader src="{{photo.url}}"></img-loader>
+    </ion-slide>
+  </ion-slides>
+
+  <!-- <div class="imagespre">
+    <img-loader (click)="slideImage(i)" *ngFor="let photo of item.photos; let i = index;" src="{{photo.url}}"></img-loader>
+  </div> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="itemdetail">
+          <h3>Price</h3>
+          <p>{{item.price}}$</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="itemdetail">
+          <h3>Description</h3>
+          <p>{{item.description}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="itemdetail">
+          <h3>Category</h3>
+          <p>{{item.category}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="itemdetail">
+          <h3>In Stock</h3>
+          <p>{{item.stock}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="itemdetail">
+          <h3>Total Purchases</h3>
+          <p>432</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item class="itemheader">
+    Similar Items
+    <button ion-button clear item-end icon-only>
+      <ion-icon name="ios-arrow-forward"></ion-icon>
+    </button>
+  </ion-item>
+  <ion-scroll scrollX="true" zoom="false">
+
+    <ion-card tappable *ngFor="let card of fakecards">
+      <img-loader src="https://image.tmdb.org/t/p/w185"></img-loader>
+      <ion-card-content>
+        <ion-card-title>
+          title
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-scroll>
+
+
+  <ion-fab right bottom>
+    <button ion-fab color="light">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="addToCart()">
+        <ion-icon name="cart"></ion-icon>
+
+      </button>
+      <button ion-fab>
+        <ion-icon name="md-heart"></ion-icon>
+
+      </button>
+      <button ion-fab>
+        <ion-icon name="star-half"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

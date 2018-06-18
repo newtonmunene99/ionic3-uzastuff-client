@@ -1,0 +1,15 @@
+page-image {
+  .scroll-content {
+    margin-top: 0 !important;
+    background-color: white;
+  }
+  ion-header,
+  .toolbar-background {
+    //background-color: initial !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+
+    &:after {
+      height: 0 !important;
+    }
+  }
+}

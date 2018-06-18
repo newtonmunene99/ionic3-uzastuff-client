@@ -1,0 +1,95 @@
+page-login {
+  .scroll-content {
+    margin-top: 0 !important;
+    background-color: darkviolet;
+  }
+  ion-header,
+  .toolbar-background {
+    //background-color: initial !important;
+    background-color: rgba(255, 255, 255, 0.34) !important;
+
+    &:after {
+      height: 0 !important;
+    }
+  }
+
+  ion-tabs {
+    display: none;
+  }
+
+  .list .item-input:last-child {
+    border-bottom: none;
+  }
+
+  hr {
+    height: 2px;
+    width: 95%;
+  }
+
+  .item-input ion-input,
+  .item-input ion-textarea {
+    border: solid 1px #dedede;
+    border-radius: 5px;
+    padding: 0 10px;
+  }
+
+  .item.item-input.input-has-focus.item-input-has-focus ion-input,
+  .item.item-input.input-has-focus.item-input-has-focus ion-textarea {
+    border: solid 1px darkviolet;
+  }
+
+  .item.item-input.input-has-focus.item-input-has-focus .label {
+    color: darkviolet;
+  }
+
+  .item.item-input.item-input-has-focus .item-inner,
+  .item.item-input.input-has-focus .item-inner {
+    box-shadow: none;
+    border-bottom: none;
+  }
+
+  .sociallogin .label {
+    margin: 0;
+  }
+
+  .sociallogin .button {
+    margin: 0;
+    height: 80px;
+  }
+
+  .loginform {
+    background-color: white;
+    padding: 40px 5px 10px 5px;
+    margin: 50% 20px 55% 20px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  ion-title {
+    text-align: center;
+  }
+
+  button.loginbtn {
+    border-radius: 10px;
+  }
+
+  .loginform .list {
+    margin: 0;
+  }
+
+  .sociallogin .list {
+    margin: 0;
+  }
+
+  .sociallogin .item {
+    padding-left: 0;
+  }
+
+  .sociallogin .item.item-block .item-inner {
+    padding-right: 0;
+  }
+
+  ion-footer {
+    position: fixed;
+  }
+}

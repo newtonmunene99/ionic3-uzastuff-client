@@ -1,0 +1,176 @@
+<!--
+  Generated template for the CheckoutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>checkout</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-slides #checkoutSlider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <ion-list no-lines>
+        <ion-item *ngFor="let item of items">
+          <ion-thumbnail item-start tappable>
+            <img src="{{item.photos[0].url}}">
+          </ion-thumbnail>
+          <h2>{{item.name}}</h2>
+          <p>{{item.price * item.quantity}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                <p>Total: {{total}}</p>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button full>Next</button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </ion-slide>
+    <ion-slide>
+      <h3>Please Choose prefferred method of Procurement</h3>
+      <ion-list radio-group [(ngModel)]="procurement">
+        <ion-item>
+          <ion-label>Delivery</ion-label>
+          <ion-radio value="delivery"></ion-radio>
+
+        </ion-item>
+
+        <ion-item>
+          <ion-label>PickUp</ion-label>
+          <ion-radio value="pickup"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="procurement === 'delivery'" class="info">
+        <p>Your item(s) will be delivered to you or to a place near you. If you live far from our HQ the item(s) will be delivered
+          via Mail, Courier Services or to one of our branches if present in your Area. Please be sure to fill in the correct
+          details in the next slide to ensure procurement. A small fee is required for transportation.</p>
+      </div>
+      <div *ngIf="procurement === 'pickup'" class="info">
+        <p>Your item(s) will be picked up at our HQ. When ready, you will be notified via email to come pick them up. Please
+          be sure to fill in the correct details in the next slide to ensure procurement. A small fee is charged</p>
+      </div>
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                <button ion-button>Previous</button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button>Next</button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </ion-slide>
+    <ion-slide>
+      <h5>Reciept Details</h5>
+      <div class="userdetails">
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label stacked>Name</ion-label>
+            <ion-input type="text" autocomplete="true" value="{{name}}" [(ngModel)]="name"></ion-input>
+          </ion-item>
+          <hr>
+          <ion-item>
+            <ion-label stacked>Email</ion-label>
+            <ion-input type="email" autocomplete="true" value="{{email}}" [(ngModel)]="email"></ion-input>
+          </ion-item>
+          <hr>
+          <ion-item>
+            <ion-label stacked>Phone Number</ion-label>
+            <ion-input type="number" value="{{phone}}" [(ngModel)]="phone"></ion-input>
+          </ion-item>
+          <hr>
+          <ion-item>
+            <ion-label stacked>Address</ion-label>
+            <ion-input type="text" [(ngModel)]="address"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </div>
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                <button ion-button>Previous</button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button>Next</button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </ion-slide>
+    <ion-slide>
+      <h5>Payment</h5>
+      <h5>Please Choose prefferred method of Payment</h5>
+      <ion-list radio-group [(ngModel)]="payment">
+        <ion-item>
+          <ion-label>On Delivery</ion-label>
+          <ion-radio value="delivery"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Immediate</ion-label>
+          <ion-radio value="immediate"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="payment === 'delivery'" class="info">
+        <p>You will be required to pay the amount in full before reciept.</p>
+      </div>
+      <div *ngIf="payment === 'immediate'" class="card-payment">
+        <ion-list radio-group [(ngModel)]="paymentmethod">
+          <ion-item>
+            <ion-label>Paypal</ion-label>
+            <ion-radio value="paypal"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Card</ion-label>
+            <ion-radio value="card"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>M-Pesa</ion-label>
+            <ion-radio value="mpesa"></ion-radio>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="paymentmethod === 'paypal'" class="info">
+          <p>You will be required to pay the amount in full before reciept.</p>
+        </div>
+        <div *ngIf="paymentmethod === 'card'">
+          <button ion-button (click)="scanCard()">Scan Card</button>
+          <p>OR</p>
+          <button ion-button full (click)="fillInCard()">Add Card Details</button>
+        </div>
+        <div *ngIf="paymentmethod === 'mpesa'" class="info">
+          <p>This Service is not available yet. We're working on it.</p>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

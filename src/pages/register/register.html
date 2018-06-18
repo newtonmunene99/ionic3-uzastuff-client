@@ -1,0 +1,65 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="bgtranslucent">
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class="register-card">
+    <div class="registerform">
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label stacked>Name</ion-label>
+          <ion-input type="text" autocomplete="true" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label stacked>Username</ion-label>
+          <ion-input type="text" autocomplete="true" [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="email" autocomplete="true" [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <h5>Already Have An Account?</h5>
+        <button class="registerbtn" ion-button full large color="dark" (click)="registerWithEmail()">
+          REGISTER
+        </button>
+
+      </ion-list>
+    </div>
+    <ion-footer>
+      <div class="sociallogin">
+        <ion-list no-lines>
+          <ion-item>
+            <button ion-button full large style="background-color: #3B5998;">
+              LOGIN WITH FACEBOOK
+            </button>
+          </ion-item>
+          <ion-item>
+            <button ion-button full large style="background-color: #DB4437;">
+              LOGIN WITH GOOGLE
+            </button>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-footer>
+  </div>
+
+</ion-content>

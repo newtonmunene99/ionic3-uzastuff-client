@@ -1,0 +1,59 @@
+<!--
+  Generated template for the CartPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>cart</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div>
+    <ion-list no-lines>
+      <ion-item *ngFor="let item of cart" (swipe)="removeItem(item)">
+        <ion-thumbnail item-start tappable>
+          <img src="{{item.photos[0].url}}">
+        </ion-thumbnail>
+        <h2>{{item.name}}</h2>
+        <p>{{item.price}}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div tappable (click)="decreaseQuantity(item)">
+                <p>-</p>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <p>{{item.quantity}}</p>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div tappable (click)="increaseQuantity(item)">
+                <p>+</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <button ion-button primary item-end (click)="openItem(item)">View</button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="checkout()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

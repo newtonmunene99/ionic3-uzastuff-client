@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCart()" *ngIf="cart">
+        <ion-icon name="cart"></ion-icon>
+        <ion-badge *ngIf="cart.length > 0"> </ion-badge>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines *ngIf="categories">
+    <ion-item class="category" *ngFor="let category of categories" tappable (click)="openCategory(category)">
+      {{category.name}}
+      <button ion-button clear item-end icon-only>
+        <ion-icon name="ios-arrow-forward"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list no-lines *ngIf="!categories">
+    <ion-item class="fakecategory" *ngFor="let category of fakecategories">
+      <p class="fakename shine"></p>
+      <p class="fakebtn shine" item-end></p>
+    </ion-item>
+  </ion-list>
+</ion-content>
