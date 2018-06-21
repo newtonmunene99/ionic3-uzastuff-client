@@ -84,4 +84,6 @@
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <engine name="android" spec="~7.0.0" />
     <plugin name="cordova-plugin-stripe" spec="^1.5.3" />
+    <plugin name="card.io.cordova.mobilesdk" spec="^2.1.0" />
+    <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
 </widget>
