@@ -60,7 +60,7 @@ export class ItemPage {
         if (res === true) {
           this.toastCtrl
             .create({
-              message: '' + this.item + ' Added To Cart',
+              message: '' + this.item.name + ' Added To Cart',
               duration: 3000,
               position: 'top',
               cssClass: 'toast-success'
@@ -69,7 +69,8 @@ export class ItemPage {
         } else if (res === 'added') {
           this.toastCtrl
             .create({
-              message: '' + this.item + ' is already in your Cart',
+              message:
+                '' + this.item.name + ' is already in your Cart',
               duration: 3000,
               position: 'top',
               cssClass: 'toast-fail'
@@ -106,7 +107,7 @@ export class ItemPage {
         if (res === true) {
           this.toastCtrl
             .create({
-              message: '' + this.item + ' Added To Wishlist',
+              message: '' + this.item.name + ' Added To Wishlist',
               duration: 3000,
               position: 'top',
               cssClass: 'toast-success'
@@ -115,7 +116,7 @@ export class ItemPage {
         } else if (res === 'added') {
           this.toastCtrl
             .create({
-              message: '' + this.item + ' Already In Wishlist',
+              message: '' + this.item.name + ' Already In Wishlist',
               duration: 3000,
               position: 'top',
               cssClass: 'toast-fail'

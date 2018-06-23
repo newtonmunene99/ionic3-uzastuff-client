@@ -296,4 +296,66 @@ export class ItemsProvider {
         });
     });
   }
+
+  saveOrder(
+    name,
+    email,
+    phone,
+    address,
+    paymentmethod,
+    paid: boolean,
+    paymentdetails,
+    total,
+    procurement,
+    items
+  ) {
+    return new Promise(resolve => {
+      this.authService
+        .checkLoginStatus()
+        .then((user: any) => {
+          if (user === false) {
+            resolve('login');
+          } else {
+            this.db
+              .collection('users')
+              .doc(user)
+              .collection('orders')
+              .add({
+                addedon: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                paymentmethod: paymentmethod,
+                paid: paid,
+                paymentdetails: paymentdetails,
+                total: total,
+                procurement: procurement,
+                items: items
+              })
+              .then(res => {
+                res
+                  .update({
+                    id: res.id
+                  })
+                  .then(() => {
+                    resolve(true);
+                  })
+                  .catch(err => {
+                    console.error(err);
+                    resolve(false);
+                  });
+              })
+              .catch(err => {
+                console.error(err);
+                resolve(false);
+              });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          resolve(false);
+        });
+    });
+  }
 }

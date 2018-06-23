@@ -32,16 +32,10 @@ export class CheckoutPage {
   email: any;
   phone: any;
   address: any;
+  paid: boolean = false;
+  paymentdetails: any;
   paymentmethod: any;
 
-  card: any = {
-    number: '',
-    expMonth: '',
-    expYear: '',
-    cvc: '',
-    name: '',
-    currency: 'KES'
-  };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -85,98 +79,16 @@ export class CheckoutPage {
     );
   }
 
-  fillInCard() {
-    let alert = this.alertCtrl.create({
-      title: 'Add Card Details',
-      subTitle: 'Please Add Exactly as Written on Card',
-      cssClass: 'cardDetailsPrompt',
-      inputs: [
-        {
-          name: 'cardnumber',
-          placeholder: 'Enter Card Number'
-        },
-        {
-          name: 'expMonth',
-          placeholder: 'Enter Card Expiry Month'
-        },
-        {
-          name: 'expYear',
-          placeholder: 'Enter Card Expiry Year'
-        },
-        {
-          name: 'cvc',
-          placeholder: 'Enter Card CVC/CVV'
-        },
-        {
-          name: 'name',
-          placeholder: 'Enter Card Holder Name'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            this.card.number = data.cardnumber;
-            this.card.expMonth = data.expMonth;
-            this.card.expYear = data.expYear;
-            this.card.cvc = data.cvc;
-            this.card.name = data.name;
-            console.log(this.card);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  scanCard() {
-    this.paymentService
-      .scanCard()
-      .then((res: any) => {
-        if (res === false) {
-          this.toastCtrl
-            .create({
-              message: 'Your Device Does Not Support Card Scanning.',
-              duration: 3000,
-              position: 'top',
-              cssClass: 'toast-fail'
-            })
-            .present();
-        } else if (res === 'error') {
-          this.toastCtrl
-            .create({
-              message: 'There Was An Error Scanning Card. Try Again',
-              duration: 3000,
-              position: 'top',
-              cssClass: 'toast-fail'
-            })
-            .present();
-        } else {
-          this.card.number = res.cardNumber;
-          this.card.expMonth = res.expiryMonth;
-          this.card.expYear = res.expiryYear;
-          this.card.cvc = res.cvv;
-          this.card.name = res.carddholderName;
-          console.log(this.card);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
   usePayPal() {
     this.paymentService
-      .usePaypal()
+      .usePaypal(this.total)
       .then(res => {
-        console.log(res);
+        if (res === false) {
+        } else {
+          console.log(res);
+          this.paid = true;
+          this.paymentdetails = res;
+        }
       })
       .catch(err => {
         console.error(err);
@@ -191,21 +103,27 @@ export class CheckoutPage {
       });
   }
 
-  processWithStripe() {
-    this.paymentService
-      .processWithStripe(this.card)
+  saveOrder() {
+    this.itemService
+      .saveOrder(
+        this.name,
+        this.email,
+        this.phone,
+        this.address,
+        this.paymentmethod,
+        this.paid,
+        this.paymentdetails || 'Not Paid',
+        this.total,
+        this.procurement,
+        this.items
+      )
       .then(res => {
-        console.log(res);
+        if (res === true) {
+        } else {
+        }
       })
       .catch(err => {
-        this.toastCtrl
-          .create({
-            message: 'There Was An Error, Please Try Again',
-            duration: 3000,
-            position: 'top',
-            cssClass: 'toast-fail'
-          })
-          .present();
+        console.error(err);
       });
   }
 }

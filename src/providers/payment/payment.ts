@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CardIO } from '@ionic-native/card-io';
-import { Stripe } from '@ionic-native/stripe';
 import {
   PayPal,
   PayPalPayment,
@@ -15,49 +13,9 @@ import {
 */
 @Injectable()
 export class PaymentProvider {
-  constructor(
-    private cardio: CardIO,
-    private stripe: Stripe,
-    private paypal: PayPal
-  ) {
-    console.log('Hello PaymentProvider Provider');
-  }
+  constructor(private paypal: PayPal) {}
 
-  scanCard() {
-    return new Promise(resolve => {
-      this.cardio
-        .canScan()
-        .then((res: boolean) => {
-          if (res) {
-            let options = {
-              requireExpiry: false,
-              requireCVV: false,
-              requirePostalCode: false,
-              scanInstructions: 'Please Make Sure The Image Is Clear',
-              hideCardIOLogo: true
-            };
-            this.cardio
-              .scan(options)
-              .then(card => {
-                resolve(card);
-                console.log(card);
-              })
-              .catch(err => {
-                resolve('error');
-                console.log(err);
-              });
-          } else {
-            console.log('Your Device does not support this.');
-            resolve(false);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    });
-  }
-
-  usePaypal() {
+  usePaypal(amount) {
     return new Promise(resolve => {
       this.paypal
         .init({
@@ -80,13 +38,15 @@ export class PaymentProvider {
               .then(
                 () => {
                   let payment = new PayPalPayment(
-                    '3.33',
+                    amount,
                     'USD',
-                    'Description',
-                    'sale'
+                    'UzaStuff Order Payment',
+                    'Item Sale'
                   );
                   this.paypal.renderSinglePaymentUI(payment).then(
-                    () => {
+                    res => {
+                      console.log(res);
+                      resolve(res);
                       // Successfully paid
                       // Example sandbox response
                       //
@@ -106,54 +66,26 @@ export class PaymentProvider {
                       //   }
                       // }
                     },
-                    () => {
+                    err => {
                       // Error or render dialog closed without being successful
+                      resolve(false);
+                      console.error(err);
                     }
                   );
                 },
-                () => {
+                err => {
+                  resolve(false);
                   // Error in configuration
+                  console.error(err);
                 }
               );
           },
-          () => {
+          err => {
+            resolve(false);
             // Error in initialization, maybe PayPal isn't supported or something else
+            console.error(err);
           }
         );
-    });
-  }
-
-  processWithStripe(card) {
-    return new Promise(resolve => {
-      this.stripe.setPublishableKey('pk_test_RokjluLPLnnNMvpvvUYzIn9n');
-      this.stripe
-        .validateCardNumber(card.number)
-        .then(res => {
-          console.log(res);
-          this.stripe
-            .validateCVC(card.cvc)
-            .then(res => {
-              console.log(res);
-              this.stripe
-                .validateExpiryDate(card.expMonth, card.expYear)
-                .then(res => {
-                  console.log(res);
-                  this.stripe
-                    .createCardToken(card)
-                    .then(token => console.log(token.id))
-                    .catch(error => console.error(error));
-                })
-                .catch(err => {
-                  console.error(err);
-                });
-            })
-            .catch(err => {
-              console.error(err);
-            });
-        })
-        .catch(err => {
-          console.error(err);
-        });
     });
   }
 }

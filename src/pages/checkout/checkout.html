@@ -38,7 +38,7 @@
             </ion-col>
             <ion-col>
               <div>
-                <button ion-button full>Next</button>
+                <button ion-button full (click)="next()">Next</button>
               </div>
             </ion-col>
           </ion-row>
@@ -73,12 +73,12 @@
           <ion-row>
             <ion-col>
               <div>
-                <button ion-button>Previous</button>
+                <button ion-button (click)="previous()">Previous</button>
               </div>
             </ion-col>
             <ion-col>
               <div>
-                <button ion-button>Next</button>
+                <button ion-button (click)="next()">Next</button>
               </div>
             </ion-col>
           </ion-row>
@@ -116,12 +116,12 @@
           <ion-row>
             <ion-col>
               <div>
-                <button ion-button>Previous</button>
+                <button ion-button (click)="previous()">Previous</button>
               </div>
             </ion-col>
             <ion-col>
               <div>
-                <button ion-button>Next</button>
+                <button ion-button (click)="next()">Next</button>
               </div>
             </ion-col>
           </ion-row>
@@ -145,32 +145,62 @@
         <p>You will be required to pay the amount in full before reciept.</p>
       </div>
       <div *ngIf="payment === 'immediate'" class="card-payment">
+        <div class="info">
+          <p>You will be required to pay the amount in full before processing of order .</p>
+        </div>
+
         <ion-list radio-group [(ngModel)]="paymentmethod">
           <ion-item>
-            <ion-label>Paypal</ion-label>
+            <ion-label>Paypal/Card</ion-label>
             <ion-radio value="paypal"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Card</ion-label>
-            <ion-radio value="card"></ion-radio>
           </ion-item>
           <ion-item>
             <ion-label>M-Pesa</ion-label>
             <ion-radio value="mpesa"></ion-radio>
           </ion-item>
         </ion-list>
-        <div *ngIf="paymentmethod === 'paypal'" class="info">
-          <p>You will be required to pay the amount in full before reciept.</p>
-        </div>
-        <div *ngIf="paymentmethod === 'card'">
-          <button ion-button (click)="scanCard()">Scan Card</button>
-          <p>OR</p>
-          <button ion-button full (click)="fillInCard()">Add Card Details</button>
+        <div *ngIf="paymentmethod === 'paypal'">
+          <button ion-button (click)="usePayPal()">PayPal</button>
         </div>
         <div *ngIf="paymentmethod === 'mpesa'" class="info">
           <p>This Service is not available yet. We're working on it.</p>
         </div>
       </div>
+
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                <button ion-button (click)="previous()">Previous</button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button (click)="next()">Next</button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+    </ion-slide>
+    <ion-slide>
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                <button ion-button (click)="previous()">Previous</button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <button ion-button (click)="saveOrder()">Finish</button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
     </ion-slide>
   </ion-slides>
 </ion-content>

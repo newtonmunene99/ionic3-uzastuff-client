@@ -3,8 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { IonicStorageModule } from '@ionic/storage';
-import { CardIO } from '@ionic-native/card-io';
-import { Stripe } from '@ionic-native/stripe';
 import { PayPal } from '@ionic-native/paypal';
 
 import { MyApp } from './app.component';
@@ -36,8 +34,6 @@ import { PaymentProvider } from '../providers/payment/payment';
     AuthProvider,
     ItemsProvider,
     PaymentProvider,
-    CardIO,
-    Stripe,
     PayPal
   ]
 })

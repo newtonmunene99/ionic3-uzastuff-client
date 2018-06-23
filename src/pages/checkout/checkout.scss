@@ -44,6 +44,37 @@ page-checkout {
     border-bottom: none;
   }
 
+  ion-footer {
+    height: 50px;
+    .grid {
+      padding: 0;
+      height: 100%;
+    }
+
+    .col {
+      padding: 0;
+      height: 100%;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    div {
+      height: 100%;
+      width: 100%;
+      .button {
+        border-radius: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        .button-effect {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
   .userdetails {
     background-color: white;
     padding: 40px 5px 10px 5px;
