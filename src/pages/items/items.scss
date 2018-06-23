@@ -11,7 +11,8 @@ page-items {
   }
 
   .list {
-    padding: 0.5vw;
+    margin: 0px;
+    padding: 0px;
     font-size: 0;
     display: -ms-flexbox;
     -ms-flex-wrap: wrap;
@@ -26,36 +27,42 @@ page-items {
     -webkit-box-flex: auto;
     -ms-flex: auto;
     flex: auto;
-    width: 200px;
-    margin: 0.5vw;
+    width: 16%;
+    margin: 2%;
+    padding: 0;
+    p {
+      color: #000;
+      font-weight: bold;
+    }
+  }
+
+  .item.item-block .item-inner {
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .label {
+    margin: 10px 0 0 0;
   }
 
   .item img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 5px;
   }
 
   .name {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 5px 10px;
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-  }
-
-  .price {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    padding: 5px 10px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
   }
   @media screen and (max-width: 400px) {
     .list .item {
-      margin: 0;
+      margin: 2%;
+      width: 46%;
     }
     .list {
       padding: 0;

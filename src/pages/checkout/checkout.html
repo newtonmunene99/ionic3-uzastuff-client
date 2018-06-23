@@ -10,14 +10,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>checkout</ion-title>
+    <ion-title>Checkout</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-slides #checkoutSlider (ionSlideDidChange)="slideChanged()">
+  <ion-slides #checkoutSlider>
     <ion-slide>
       <ion-list no-lines>
         <ion-item *ngFor="let item of items">
@@ -195,7 +195,7 @@
             </ion-col>
             <ion-col>
               <div>
-                <button ion-button (click)="saveOrder()">Finish</button>
+                <button ion-button (click)="saveOrder()" [disabled]="!procurement || !name || !payment || !email || !phone || !address || (payment === 'immediate' && !paid)">Finish</button>
               </div>
             </ion-col>
           </ion-row>

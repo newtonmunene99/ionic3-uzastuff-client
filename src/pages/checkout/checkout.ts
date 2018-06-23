@@ -33,7 +33,7 @@ export class CheckoutPage {
   phone: any;
   address: any;
   paid: boolean = false;
-  paymentdetails: any;
+  paymentdetails: any = 'Not Paid';
   paymentmethod: any;
 
   constructor(
@@ -47,9 +47,10 @@ export class CheckoutPage {
     this.getItems();
   }
 
-  slideChanged() {
-    let currentIndex: number = this.checkoutSlider.getActiveIndex();
-    console.log(currentIndex);
+  ionViewDidLoad() {
+    this.checkoutSlider.effect = 'flip'
+    this.checkoutSlider.pager = true;
+    this.checkoutSlider.paginationType = 'progress';
   }
 
   next() {
@@ -110,16 +111,17 @@ export class CheckoutPage {
         this.email,
         this.phone,
         this.address,
-        this.paymentmethod,
         this.paid,
-        this.paymentdetails || 'Not Paid',
+        this.paymentdetails,
         this.total,
         this.procurement,
         this.items
       )
       .then(res => {
         if (res === true) {
+          this.navCtrl.push('TabsPage');
         } else {
+          console.log(res);
         }
       })
       .catch(err => {

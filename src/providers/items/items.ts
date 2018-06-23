@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { Observable } from 'rxjs/Observable';
 import moment from 'moment';
 import { AuthProvider } from '../auth/auth';
@@ -175,7 +177,7 @@ export class ItemsProvider {
               .collection('cart')
               .doc(item.id)
               .delete()
-              .then(res => {
+              .then(() => {
                 resolve(true);
               })
               .catch(err => {
@@ -202,14 +204,16 @@ export class ItemsProvider {
             .collection('cart')
             .doc(item.id)
             .update({ quantity: quantity })
-            .then(res => {
-              console.log(res);
+            .then(() => {
+              resolve(true);
             })
             .catch(err => {
               console.error(err);
             });
         })
-        .catch();
+        .catch(err => {
+          console.error(err);
+        });
     });
   }
 
@@ -302,7 +306,6 @@ export class ItemsProvider {
     email,
     phone,
     address,
-    paymentmethod,
     paid: boolean,
     paymentdetails,
     total,
@@ -317,8 +320,6 @@ export class ItemsProvider {
             resolve('login');
           } else {
             this.db
-              .collection('users')
-              .doc(user)
               .collection('orders')
               .add({
                 addedon: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -326,20 +327,46 @@ export class ItemsProvider {
                 email: email,
                 phone: phone,
                 address: address,
-                paymentmethod: paymentmethod,
                 paid: paid,
                 paymentdetails: paymentdetails,
                 total: total,
                 procurement: procurement,
-                items: items
+                items: items,
+                processed: false,
+                status: 'Being Shipped'
               })
               .then(res => {
                 res
-                  .update({
-                    id: res.id
-                  })
+                  .update({ id: res.id })
                   .then(() => {
-                    resolve(true);
+                    this.db
+                      .collection('users')
+                      .doc(user)
+                      .collection('orders')
+                      .doc(res.id)
+                      .set({
+                        id: res.id,
+                        addedon: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        address: address,
+                        paid: paid,
+                        paymentdetails: paymentdetails,
+                        total: total,
+                        procurement: procurement,
+                        items: items
+                      })
+                      .then(() => {
+                        for (var item of items) {
+                          this.removeFromCart(item);
+                        }
+                        resolve(true);
+                      })
+                      .catch(err => {
+                        console.error(err);
+                        resolve(false);
+                      });
                   })
                   .catch(err => {
                     console.error(err);

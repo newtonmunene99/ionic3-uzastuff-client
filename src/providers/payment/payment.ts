@@ -31,7 +31,14 @@ export class PaymentProvider {
               .prepareToRender(
                 'PayPalEnvironmentSandbox',
                 new PayPalConfiguration({
-                  // Only needed if you get an "Internal Service Error" after PayPal login!
+                  rememberUser: true,
+                  merchantPrivacyPolicyURL:
+                    'https://enteryourprivacypolicyurlhere.com',
+                  merchantUserAgreementURL:
+                    'https://enteryouruseragreementurlhere.com',
+                  merchantName: 'Uzastuff Online Shop',
+                  acceptCreditCards: true
+                  // Uncomment the line below if you get an "Internal Service Error" after PayPal login!
                   //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
                 })
               )
@@ -47,24 +54,6 @@ export class PaymentProvider {
                     res => {
                       console.log(res);
                       resolve(res);
-                      // Successfully paid
-                      // Example sandbox response
-                      //
-                      // {
-                      //   "client": {
-                      //     "environment": "sandbox",
-                      //     "product_name": "PayPal iOS SDK",
-                      //     "paypal_sdk_version": "2.16.0",
-                      //     "platform": "iOS"
-                      //   },
-                      //   "response_type": "payment",
-                      //   "response": {
-                      //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-                      //     "state": "approved",
-                      //     "create_time": "2016-10-03T13:33:33Z",
-                      //     "intent": "sale"
-                      //   }
-                      // }
                     },
                     err => {
                       // Error or render dialog closed without being successful

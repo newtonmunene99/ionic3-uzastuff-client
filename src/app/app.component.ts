@@ -3,7 +3,9 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { config } from './app.firebase';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 import { ImageLoaderConfig } from 'ionic-image-loader';
 import { Storage } from '@ionic/storage';
 
@@ -26,7 +28,9 @@ export class MyApp {
   ) {
     //INITIALIZES FIREBASE WITH THE APP
     firebase.initializeApp(config);
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     firebase.firestore().settings({ timestampsInSnapshots: true });
+
     /* firebase
       .firestore()
       .enablePersistence()
@@ -55,7 +59,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
 
       //CONFIGURATION FOR THE IMAGE LOADER PLUGIN
