@@ -43,7 +43,7 @@
     "ionic-angular": "3.9.2",
     "ionic-image-loader": "^5.0.0",
     "ionicons": "4.2.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "node-vibrant": "^3.0.0",
     "rxjs": "^5.5.10",
     "sw-toolbox": "3.6.0",
